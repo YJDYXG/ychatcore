@@ -1,4 +1,4 @@
-EXEC_FILE = monitor_cloud_gpt
+EXEC_FILE = ychatcore
 POLICY_EXEC_FILE = ./build/$(EXEC_FILE)
 VERSION_FILE = src/mcloud/version.go
 VERSION_MAJOR = `cat ../process_public/process_config/version`
