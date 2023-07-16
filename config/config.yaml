@@ -1,0 +1,80 @@
+#ChatCore config
+
+
+#---------------Infrastructure configuration---------------------#
+zookeeper:
+  schema: openim                          #不建议修改
+  address: [ 127.0.0.1:2181 ]             #
+  username:                               #用户名
+  password:                               #密码
+
+redis:
+  address: [ 127.0.0.1:16379 ]            #
+  username:                               #only redis version 6.0+ need username
+  password: chatcore78                     #密码
+
+kafka:
+  username:                               #用户名
+  password:                               #密码
+  addr: [ 127.0.0.1:9092 ]                #
+  latestMsgToRedis:
+    topic: "latestMsgToRedis"             #不建议修改
+  msgToPush:
+    topic: "msgToPush"                    #不建议修改
+  msgToModify:
+    topic: "msgToModify"                  #不建议修改
+  consumerGroupID: #消费者组，不建议修改
+    msgToRedis: redis                     #
+    msgToPush: push                       #
+    msgToModify: modify                   #
+
+rpc:
+  registerIP:                             #作为rpc启动时，注册到zookeeper的IP，api/gateway能访问到此ip和对应的rpcPort中的端口
+  listenIP:                               #默认为0.0.0.0
+
+rpcPort: #rpc服务端口，不建议修改，端口由脚本读取后传入程序，如启动多个程序，只需要填入多个端口，用逗号隔开，如  [10110, 10111]
+  CharCoreUserPort: [ 10110 ]
+  CharCoreMessagePort: [ 10130 ]
+  CharCoreMessageGatewayPort: [ 10140 ]
+
+rpcRegisterName: #rpc注册服务名，不建议修改
+  CharCoreUserName: User
+  CharCoreMsgName: Msg
+  CharCoreMessageGatewayName: MessageGateway
+
+log:
+  storageLocation: ../logs/           #存放目录
+  rotationTime: 24                    #日志旋转时间
+  remainRotationCount: 2              #日志数量
+  remainLogLevel: 6                   #日志级别 6表示全都打印，
+  isStdout: false
+  isJson: false
+  withStack: false
+
+longConnSvr:
+  openImWsPort: [ 10001 ]             #msg_gateway的websocket端口
+  websocketMaxConnNum: 100000         #websocket最大连接数
+  websocketMaxMsgLen: 4096            #websocket请求包最大长度
+  websocketTimeout: 10                #websocket连接握手超时时间
+
+multiLoginPolicy: 1                                     #多平台登录：Android、iOS、Windows、Mac、web 每种平台只能有一个在线
+
+msgCacheTimeout: 86400                                  #信消息缓存时间秒，不建议修改
+
+secret: tuoyun #秘钥，获取token时校验
+
+tokenPolicy:
+  expire: 90                                     #过期时间（天）
+
+callback:
+  # 回调callback
+  url:
+  beforeSendSingleMsg:
+    enable: false                                     #是否启用此回调事件
+    timeout: 5                                        #超时时间（秒）
+    failedContinue: true                              #如回调失败是否继续往后执行
+  afterSendSingleMsg:
+    enable: false
+    timeout: 5
+
+
