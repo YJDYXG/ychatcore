@@ -2,8 +2,8 @@ package cmd
 
 import (
 	"../../../internal/msggateway"
-	"constant"
-	"github.com/spf13/cobra"
+	"../constant"
+	"../../../libsrc/github.com/spf13/cobra"
 )
 
 type MsgGatewayCmd struct {
@@ -25,7 +25,7 @@ func (m *MsgGatewayCmd) getWsPortFlag(cmd *cobra.Command) int {
 
 func (m *MsgGatewayCmd) addRunE() {
 	m.Command.RunE = func(cmd *cobra.Command, args []string) error {
-		return msggateway.RunWsAndServer(m.getPortFlag(cmd), m.getWsPortFlag(cmd), m.getPrometheusPortFlag(cmd))
+		return msggateway.RunWsAndServer(m.getPortFlag(cmd), m.getWsPortFlag(cmd)/*, m.getPrometheusPortFlag(cmd)*/)
 	}
 }
 
